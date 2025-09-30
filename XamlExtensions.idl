@@ -1,0 +1,38 @@
+namespace XamlExtensions
+{
+    [default_interface]
+    runtimeclass XamlAdd
+    {
+        XamlAdd();
+        Double A;
+        Double B;
+        Double ProvideValue();
+    }
+
+    [default_interface]
+    runtimeclass XamlSubtract
+    {
+        XamlSubtract();
+        Double A;
+        Double B;
+        Double ProvideValue();
+    }
+
+    [default_interface]
+    runtimeclass XamlMultiply
+    {
+        XamlMultiply();
+        Double A;
+        Double B;
+        Double ProvideValue();
+    }
+
+    [default_interface]
+    runtimeclass XamlDivide
+    {
+        XamlDivide();
+        Double A;
+        Double B;
+        Double ProvideValue();
+    }
+}
