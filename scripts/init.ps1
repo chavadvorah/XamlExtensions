@@ -1,3 +1,3 @@
-nuget restore ..\XamlExtensions.sln -PackagesDir ..\packages
-& .\build.ps1
+nuget restore XamlExtensions.sln -PackagesDir .\packages
+scripts\build.ps1
 
