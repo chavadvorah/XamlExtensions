@@ -1,38 +1,141 @@
 namespace XamlExtensions
 {
     [default_interface]
-    runtimeclass XamlAdd
+    runtimeclass Add
     {
-        XamlAdd();
-        Double A;
-        Double B;
-        Double ProvideValue();
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
     }
 
     [default_interface]
-    runtimeclass XamlSubtract
+    runtimeclass GridLengthAdd
     {
-        XamlSubtract();
-        Double A;
-        Double B;
-        Double ProvideValue();
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
     }
 
     [default_interface]
-    runtimeclass XamlMultiply
+    runtimeclass GridLengthSum
     {
-        XamlMultiply();
-        Double A;
-        Double B;
-        Double ProvideValue();
+        static Microsoft.UI.Xaml.DependencyProperty ValuesProperty{ get; };
+        static Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.GridLength> GetValues(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetValues(Microsoft.UI.Xaml.DependencyObject target, Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.GridLength> value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
     }
 
     [default_interface]
-    runtimeclass XamlDivide
+    runtimeclass Neg
     {
-        XamlDivide();
-        Double A;
-        Double B;
-        Double ProvideValue();
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
+
+    [default_interface]
+    runtimeclass Multiply
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
+
+    [default_interface]
+    runtimeclass Divide
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
+
+    [default_interface]
+    runtimeclass Add3
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty CProperty{ get; };
+        static Double GetC(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetC(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
+
+    [default_interface]
+    runtimeclass Multiply3
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Double GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty CProperty{ get; };
+        static Double GetC(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetC(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Double GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
+
+    [default_interface]
+    runtimeclass GridLengthAdd3
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty CProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetC(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetC(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
     }
 }

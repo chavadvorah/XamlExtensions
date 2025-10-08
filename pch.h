@@ -13,6 +13,7 @@
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Xaml.h>
+#include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 
 namespace wf = winrt::Windows::Foundation;

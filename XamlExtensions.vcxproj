@@ -23,7 +23,7 @@
     <RootNamespace>XamlExtensions</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
-    <AppContainerApplication>true</AppContainerApplication>
+    <AppContainerApplication>false</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.26100.0</WindowsTargetPlatformVersion>
@@ -128,22 +128,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="XamlAdd.h" />
-    <ClInclude Include="XamlDivide.h" />
-    <ClInclude Include="XamlExtensions.h" />
-    <ClInclude Include="XamlMultiply.h" />
-    <ClInclude Include="XamlSubtract.h" />
+    <ClInclude Include="Add.h" />
+    <ClInclude Include="GridLengthAdd.h" />
+    <ClInclude Include="GridLengthSum.h" />
+    <ClInclude Include="Neg.h" />
+    <ClInclude Include="Multiply.h" />
+    <ClInclude Include="Divide.h" />
+    <ClInclude Include="Add3.h" />
+    <ClInclude Include="Multiply3.h" />
+    <ClInclude Include="GridLengthAdd3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="XamlAdd.cpp" />
+    <ClCompile Include="Add.cpp" />
+    <ClCompile Include="GridLengthAdd.cpp" />
+    <ClCompile Include="GridLengthSum.cpp" />
+    <ClCompile Include="Neg.cpp" />
+    <ClCompile Include="Multiply.cpp" />
+    <ClCompile Include="Divide.cpp" />
+    <ClCompile Include="Add3.cpp" />
+    <ClCompile Include="Multiply3.cpp" />
+    <ClCompile Include="GridLengthAdd3.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="XamlDivide.cpp" />
-    <ClCompile Include="XamlExtensions.cpp" />
-    <ClCompile Include="XamlMultiply.cpp" />
-    <ClCompile Include="XamlSubtract.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="XamlExtensions.idl" />
