@@ -4,15 +4,6 @@ Windows Runtime Component providing XAML-compatible math operations at compile t
 
 ---
 
-## Quick Start
-
-```powershell
-# From XamlExtensions directory
-.\scripts\build.ps1    # Build
-```
-
----
-
 ## Overview
 
 XamlExtensions enables mathematical calculations directly in XAML markup using attached properties and compiled bindings (`x:Bind`).
@@ -27,7 +18,128 @@ XamlExtensions enables mathematical calculations directly in XAML markup using a
 ### Usage Pattern
 
 ```xaml
-xmlns:xe="using:XamlExtensions"
+<Element x:Name="ElementName"
+         xe:Add.A="100"
+         xe:Add.B="50"
+         Width="{x:Bind xe:Add.GetResult(ElementName), Mode=OneTime}" />
+<!-- Result: Width = 150 -->
+```
+See [Available Operation](#available-operations) for more details
+
+---
+
+## Integrating XamlExtensions into Your WinUI3 C++ Project
+
+Follow these steps to add XamlExtensions to your WinUI3 C++/WinRT application.
+
+### Step 1: Clone XamlExtensions
+
+```bash
+git submodule add git@github.com:chavadvorah/XamlExtensions path/to/XamlExtensions
+git submodule update --init --recursive
+```
+
+or alternatively
+```bash
+git clone git@github.com:chavadvorah/XamlExtensions path/to/XamlExtensions
+```
+
+Replace `path/to/XamlExtensions` with your desired location (e.g., `src/XamlExtensions`).
+
+### Step 2: Add ProjectReference to Your .vcxproj
+
+Edit your application's `.vcxproj` and add:
+
+```xml
+<ItemGroup>
+  <ProjectReference Include="path\to\XamlExtensions\XamlExtensions.vcxproj">
+    <Project>{ed6ed822-2818-4497-a7b4-cf4971739bfe}</Project>
+  </ProjectReference>
+</ItemGroup>
+```
+
+### Step 3: Include XamlExtensions Header in pch.h
+
+Add to your precompiled header (`pch.h`):
+
+```cpp
+#include <winrt/XamlExtensions.h>
+```
+
+This makes XamlExtensions types available to the xaml compiler. **Important:** This is required, otherwise you **will** get build errors, even if you do not use any of the `#include`d C++ code directly.
+
+### Step 4: Register Activatable Classes in app.manifest
+
+**CRITICAL:** Add this to your `app.manifest`. If you don't have an `app.manifest`, create one in your project root:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+  <assemblyIdentity version="1.0.0.0" name="YourApp.app"/>
+
+  <!-- DPI Awareness (recommended for WinUI3) -->
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <windowsSettings>
+      <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitorV2</dpiAwareness>
+    </windowsSettings>
+  </application>
+
+  <!-- Registration-free WinRT activation -->
+  <file name="XamlExtensions.dll">
+    <activatableClass
+      name="XamlExtensions.Add"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.Multiply"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.Divide"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.Neg"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.Add3"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.Multiply3"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.GridLengthAdd"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+      name="XamlExtensions.GridLengthAdd3"
+      threadingModel="both"
+      xmlns="urn:schemas-microsoft-com:winrt.v1" />
+  </file>
+</assembly>
+```
+
+Then add the manifest to your `.vcxproj`:
+
+```xml
+<ItemGroup>
+  <Manifest Include="app.manifest" />
+</ItemGroup>
+```
+
+**Without this registration, XAML cannot instantiate XamlExtensions types and you will get runtime errors.**
+
+### Step 5: Use in XAML
+
+You can now use XamlExtensions in your XAML:
+
+```xaml
+<Page ...
+      xmlns:xe="using:XamlExtensions"
+      ... >
 
 <!-- Create the binding -->
 <Element x:Name="ElementName"
@@ -36,62 +148,6 @@ xmlns:xe="using:XamlExtensions"
          Width="{x:Bind xe:Add.GetResult(ElementName), Mode=OneTime}" />
 <!-- Result: Width = 150 -->
 ```
- - `xe:[Operand].GetResult(target)` can be used in any property that accepts a integral value (i.e. `Width`, `Height`)
- - Use `xe:GridLengthAdd.A/B/GetResult` pattern for any property that accepts a GridLength value.
-
----
-
-## Consuming XamlExtensions in Your Project
-
-### Required: App Manifest Registration
-
-**CRITICAL:** To use XamlExtensions in an unpackaged WinUI3 C++ application, you **must** register all activatable classes in your application's manifest file.
-
-Add the following to your `app.manifest` (or create one if it doesn't exist):
-
-```xml
-<!-- Registration-free WinRT activation -->
-<file name="XamlExtensions.dll">
-  <activatableClass
-    name="XamlExtensions.Add"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.Multiply"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.Divide"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.Neg"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.Add3"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.Multiply3"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.GridLengthAdd"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  <activatableClass
-    name="XamlExtensions.GridLengthAdd3"
-    threadingModel="both"
-    xmlns="urn:schemas-microsoft-com:winrt.v1" />
-</file>
-```
-
-**Without this registration, XAML cannot instantiate XamlExtensions types and you will get runtime errors.**
-
-### Project Reference
-
-Add XamlExtensions as a project reference in your `.vcxproj`, or ensure the DLL is copied to your output directory.
 
 ---
 
@@ -246,38 +302,6 @@ Edit your application's `app.manifest`:
 ```
 
 Without this registration, XAML cannot instantiate your WinRT class!
-
-### 6. Rebuild
-
-```powershell
-.\scripts\build.ps1
-```
-
----
-
-## Project Structure
-
-```
-XamlExtensions/
-├── AttachedPropertyHelper.h     # CRTP base template + macros
-├── Add.cpp/h                    # Binary: A + B
-├── Multiply.cpp/h               # Binary: A * B
-├── Divide.cpp/h                 # Binary: A / B (with zero check)
-├── Neg.cpp/h                    # Unary: -A
-├── Add3.cpp/h                   # Ternary: A + B + C
-├── Multiply3.cpp/h              # Ternary: A * B * C
-├── GridLengthAdd.cpp/h          # Binary GridLength addition
-├── GridLengthAdd3.cpp/h         # Ternary GridLength addition
-├── XamlExtensions.idl           # WinRT type definitions
-├── XamlExtensions.def           # DLL exports
-├── pch.h/cpp                    # Precompiled header
-├── XamlExtensions.vcxproj       # MSBuild project
-├── packages.config              # NuGet packages
-├── scripts/
-│   ├── build.ps1                # Build script
-│   └── init.ps1                 # NuGet restore + projections
-└── docs/                        # Additional documentation
-```
 
 ---
 
