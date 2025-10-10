@@ -2,37 +2,21 @@
 
 #include "pch.h"
 #include "Multiply.g.h"
+#include "AttachedPropertyHelper.h"
 
-namespace winrt::XamlExtensions::implementation
-{
-    struct Multiply
-    {
-        Multiply() = delete;
+namespace winrt::XamlExtensions::implementation {
+    struct Multiply : AttachedPropertyBase<Multiply, double> {
+            Multiply() = delete;
 
-        static mux::DependencyProperty AProperty();
-        static double GetA(mux::DependencyObject const& target);
-        static void SetA(mux::DependencyObject const& target, double value);
+            DECLARE_BINARY_OPERATION_PROPERTIES(Multiply,
+                                                XamlExtensions::Multiply,
+                                                double,
+                                                0.0)
 
-        static mux::DependencyProperty BProperty();
-        static double GetB(mux::DependencyObject const& target);
-        static void SetB(mux::DependencyObject const& target, double value);
-
-        static mux::DependencyProperty ResultProperty();
-        static double GetResult(mux::DependencyObject const& target);
-
-    private:
-        static void OnInputPropertyChanged(mux::DependencyObject const& d, mux::DependencyPropertyChangedEventArgs const& e);
-        static void UpdateResult(mux::DependencyObject const& target);
-
-        static mux::DependencyProperty m_aProperty;
-        static mux::DependencyProperty m_bProperty;
-        static mux::DependencyProperty m_resultProperty;
+            static void UpdateResult(const mux::DependencyObject& target);
     };
-}
+} // namespace winrt::XamlExtensions::implementation
 
-namespace winrt::XamlExtensions::factory_implementation
-{
-    struct Multiply : MultiplyT<Multiply, implementation::Multiply>
-    {
-    };
-}
+namespace winrt::XamlExtensions::factory_implementation {
+    struct Multiply : MultiplyT<Multiply, implementation::Multiply> {};
+} // namespace winrt::XamlExtensions::factory_implementation

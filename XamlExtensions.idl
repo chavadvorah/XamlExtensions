@@ -31,17 +31,6 @@ namespace XamlExtensions
     }
 
     [default_interface]
-    runtimeclass GridLengthSum
-    {
-        static Microsoft.UI.Xaml.DependencyProperty ValuesProperty{ get; };
-        static Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.GridLength> GetValues(Microsoft.UI.Xaml.DependencyObject target);
-        static void SetValues(Microsoft.UI.Xaml.DependencyObject target, Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.GridLength> value);
-
-        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
-        static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
-    }
-
-    [default_interface]
     runtimeclass Neg
     {
         static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };

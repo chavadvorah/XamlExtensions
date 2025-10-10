@@ -5,3 +5,6 @@ XamlExtensions/
 Generated Files/
 .cache/
 Debug/
+
+*.swp
+

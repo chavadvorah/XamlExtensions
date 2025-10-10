@@ -90,9 +90,6 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="PropertySheet.props" />
-  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
   <ItemDefinitionGroup>
@@ -128,9 +125,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="AttachedPropertyHelper.h" />
     <ClInclude Include="Add.h" />
     <ClInclude Include="GridLengthAdd.h" />
-    <ClInclude Include="GridLengthSum.h" />
     <ClInclude Include="Neg.h" />
     <ClInclude Include="Multiply.h" />
     <ClInclude Include="Divide.h" />
@@ -144,7 +141,6 @@
     </ClCompile>
     <ClCompile Include="Add.cpp" />
     <ClCompile Include="GridLengthAdd.cpp" />
-    <ClCompile Include="GridLengthSum.cpp" />
     <ClCompile Include="Neg.cpp" />
     <ClCompile Include="Multiply.cpp" />
     <ClCompile Include="Divide.cpp" />
