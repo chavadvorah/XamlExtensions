@@ -10,10 +10,9 @@ XamlExtensions enables mathematical calculations directly in XAML markup using a
 
 ### Why Attached Properties?
 
-**Alternative approaches that don't work:**
-- ❌ **Custom MarkupExtensions** - Cannot be consumed across C#/C++ boundary in WinUI3
-- ❌ **Value Converters** - Don't support multi-binding in WinUI3
-- ✅ **Attached Properties** - Work perfectly with `x:Bind` compile-time binding
+- [❌] **Custom MarkupExtensions** - Cannot be consumed across C#/C++ boundary in WinUI3
+- [❌] **Value Converters** - Don't support multi-binding in WinUI3
+- [✅] **Attached Properties** - Work with `x:Bind` to produce compile-time binding
 
 ### Usage Pattern
 
@@ -35,16 +34,8 @@ Follow these steps to add XamlExtensions to your WinUI3 C++/WinRT application.
 ### Step 1: Clone XamlExtensions
 
 ```bash
-git submodule add git@github.com:chavadvorah/XamlExtensions path/to/XamlExtensions
-git submodule update --init --recursive
-```
-
-or alternatively
-```bash
 git clone git@github.com:chavadvorah/XamlExtensions path/to/XamlExtensions
 ```
-
-Replace `path/to/XamlExtensions` with your desired location (e.g., `src/XamlExtensions`).
 
 ### Step 2: Add ProjectReference to Your .vcxproj
 
@@ -57,6 +48,7 @@ Edit your application's `.vcxproj` and add:
   </ProjectReference>
 </ItemGroup>
 ```
+**CRITICAL:** This forces your project to build (and produce winrt headers for) XamlExtensions prior to building itself. This is required for the compiler to know about the added XamlTypes.
 
 ### Step 3: Include XamlExtensions Header in pch.h
 
@@ -66,7 +58,9 @@ Add to your precompiled header (`pch.h`):
 #include <winrt/XamlExtensions.h>
 ```
 
-This makes XamlExtensions types available to the xaml compiler. **Important:** This is required, otherwise you **will** get build errors, even if you do not use any of the `#include`d C++ code directly.
+**CRITICAL:** This gives access to the XamlTypes to the xaml compiler, and is **REQUIRED** even if you don't use the C++ code directly.
+
+**Important:** You will need to build XamlExtensions once after including it in your project to get winrt projection headers. You will likely get IntelliSense errors until then.
 
 ### Step 4: Register Activatable Classes in app.manifest
 
@@ -130,7 +124,7 @@ Then add the manifest to your `.vcxproj`:
 </ItemGroup>
 ```
 
-**Without this registration, XAML cannot instantiate XamlExtensions types and you will get runtime errors.**
+**CRITICAL:** This is required to register the classes with the xaml compiler. Your project will not build without it.
 
 ### Step 5: Use in XAML
 
@@ -148,46 +142,6 @@ You can now use XamlExtensions in your XAML:
          Width="{x:Bind xe:Add.GetResult(ElementName), Mode=OneTime}" />
 <!-- Result: Width = 150 -->
 ```
-
----
-
-## Architecture
-
-### CRTP-Based Template System
-
-All operations inherit from `AttachedPropertyBase<TDerived, TValue>` to eliminate code duplication.
-
-**Base Template** (`AttachedPropertyHelper.h`):
-```cpp
-template<typename TDerived, typename TValue>
-struct AttachedPropertyBase {
-    // Property registration with callback
-    template<typename TProjected>
-    static mux::DependencyProperty RegisterProperty(const wchar_t* name, TValue defaultValue);
-
-    // Result property (no callback)
-    template<typename TProjected>
-    static mux::DependencyProperty RegisterResultProperty(const wchar_t* name, TValue defaultValue);
-
-    // Generic getters/setters
-    static TValue GetValue(const mux::DependencyObject& target, const mux::DependencyProperty& property);
-    static void SetValue(const mux::DependencyObject& target, const mux::DependencyProperty& property, TValue value);
-
-    // Change handler delegates to derived UpdateResult
-    static void OnInputPropertyChanged(const mux::DependencyObject& d, const mux::DependencyPropertyChangedEventArgs& e);
-};
-```
-
-**Helper Macros:**
-- `DECLARE_UNARY_OPERATION_PROPERTIES` - One input (e.g., Neg)
-- `DECLARE_BINARY_OPERATION_PROPERTIES` - Two inputs (e.g., Add, Multiply)
-- `DECLARE_TERNARY_OPERATION_PROPERTIES` - Three inputs (e.g., Add3)
-- Corresponding `IMPLEMENT_*` macros for .cpp files
-
-**Type Separation:**
-- `TDerived` = Implementation type (e.g., `Add`) - used for CRTP callback
-- `TProjected` = WinRT projected type (e.g., `XamlExtensions::Add`) - required by RegisterAttached
-- This separation is critical because WinRT needs exact runtime type names
 
 ---
 
@@ -219,7 +173,7 @@ struct AttachedPropertyBase {
 
 ---
 
-## Adding New Operations
+## Extending XamlExtensions (Adding New Operations)
 
 ### 1. Add to IDL (`XamlExtensions.idl`)
 
@@ -235,6 +189,8 @@ runtimeclass MyOperation {
 ```
 
 ### 2. Create Header (`MyOperation.h`)
+
+**Important:** Based on your desired operation, and the operands it takes, you may want to use the `_BINARY_` or `_TERNARY_` versions of macros. Adding more operands would require adding additional macros.
 
 ```cpp
 #pragma once
@@ -288,7 +244,7 @@ namespace winrt::XamlExtensions::implementation {
 
 ### 5. Register in Consuming Application's app.manifest
 
-**CRITICAL STEP:** The consuming application must register the new class for activation.
+**CRITICAL:** The consuming application must register the new class for activation.
 
 Edit your application's `app.manifest`:
 ```xml
@@ -300,8 +256,6 @@ Edit your application's `app.manifest`:
     xmlns="urn:schemas-microsoft-com:winrt.v1" />
 </file>
 ```
-
-Without this registration, XAML cannot instantiate your WinRT class!
 
 ---
 
