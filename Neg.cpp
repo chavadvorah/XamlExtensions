@@ -2,16 +2,14 @@
 #include "Neg.h"
 #include "Neg.g.cpp"
 
-namespace winrt::XamlExtensions::implementation
-{
-    // Register dependency properties using helper macros
-    IMPLEMENT_UNARY_OPERATION_PROPERTIES(Neg, XamlExtensions::Neg, double, 0.0)
+namespace winrt::XamlExtensions::implementation {
+    IMPLEMENT_INPUT_PROPERTY(Neg, XamlExtensions::Neg, A, double, 0.0)
+    IMPLEMENT_RESULT_PROPERTY(Neg, XamlExtensions::Neg, double, 0.0)
+    IMPLEMENT_PROPERTY_CHANGED_HANDLER(Neg)
 
-    // Only the operation-specific logic remains
-    void Neg::UpdateResult(mux::DependencyObject const& target)
-    {
-        double a = GetA(target);
+    void Neg::UpdateResult(const mux::DependencyObject& target) {
+        double a      = GetA(target);
         double result = -a;
-        SetValue(target, m_resultProperty, result);
+        target.SetValue(m_resultProperty, winrt::box_value(result));
     }
-}
+} // namespace winrt::XamlExtensions::implementation

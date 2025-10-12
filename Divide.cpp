@@ -2,17 +2,16 @@
 #include "Divide.h"
 #include "Divide.g.cpp"
 
-namespace winrt::XamlExtensions::implementation
-{
-    // Register dependency properties using helper macros
-    IMPLEMENT_BINARY_OPERATION_PROPERTIES(Divide, XamlExtensions::Divide, double, 0.0)
+namespace winrt::XamlExtensions::implementation {
+    IMPLEMENT_INPUT_PROPERTY(Divide, XamlExtensions::Divide, A, double, 0.0)
+    IMPLEMENT_INPUT_PROPERTY(Divide, XamlExtensions::Divide, B, double, 0.0)
+    IMPLEMENT_RESULT_PROPERTY(Divide, XamlExtensions::Divide, double, 0.0)
+    IMPLEMENT_PROPERTY_CHANGED_HANDLER(Divide)
 
-    // Only the operation-specific logic remains
-    void Divide::UpdateResult(mux::DependencyObject const& target)
-    {
-        double a = GetA(target);
-        double b = GetB(target);
+    void Divide::UpdateResult(const mux::DependencyObject& target) {
+        double a      = GetA(target);
+        double b      = GetB(target);
         double result = (b != 0.0) ? (a / b) : 0.0;
-        SetValue(target, m_resultProperty, result);
+        target.SetValue(m_resultProperty, winrt::box_value(result));
     }
-}
+} // namespace winrt::XamlExtensions::implementation

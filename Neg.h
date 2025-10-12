@@ -5,14 +5,16 @@
 #include "AttachedPropertyHelper.h"
 
 namespace winrt::XamlExtensions::implementation {
-    struct Neg : AttachedPropertyBase<Neg, double> {
+    struct Neg {
             Neg() = delete;
 
-            DECLARE_UNARY_OPERATION_PROPERTIES(Neg,
-                                               XamlExtensions::Neg,
-                                               double,
-                                               0.0)
+            DECLARE_INPUT_PROPERTY(A, double)
+            DECLARE_RESULT_PROPERTY(double)
 
+        private:
+            static void OnInputPropertyChanged(
+                const mux::DependencyObject& d,
+                const mux::DependencyPropertyChangedEventArgs& /*e*/);
             static void UpdateResult(const mux::DependencyObject& target);
     };
 } // namespace winrt::XamlExtensions::implementation

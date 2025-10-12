@@ -2,17 +2,16 @@
 #include "Multiply.h"
 #include "Multiply.g.cpp"
 
-namespace winrt::XamlExtensions::implementation
-{
-    // Register dependency properties using helper macros
-    IMPLEMENT_BINARY_OPERATION_PROPERTIES(Multiply, XamlExtensions::Multiply, double, 0.0)
+namespace winrt::XamlExtensions::implementation {
+    IMPLEMENT_INPUT_PROPERTY(Multiply, XamlExtensions::Multiply, A, double, 0.0)
+    IMPLEMENT_INPUT_PROPERTY(Multiply, XamlExtensions::Multiply, B, double, 0.0)
+    IMPLEMENT_RESULT_PROPERTY(Multiply, XamlExtensions::Multiply, double, 0.0)
+    IMPLEMENT_PROPERTY_CHANGED_HANDLER(Multiply)
 
-    // Only the operation-specific logic remains
-    void Multiply::UpdateResult(mux::DependencyObject const& target)
-    {
-        double a = GetA(target);
-        double b = GetB(target);
+    void Multiply::UpdateResult(const mux::DependencyObject& target) {
+        double a      = GetA(target);
+        double b      = GetB(target);
         double result = a * b;
-        SetValue(target, m_resultProperty, result);
+        target.SetValue(m_resultProperty, winrt::box_value(result));
     }
-}
+} // namespace winrt::XamlExtensions::implementation

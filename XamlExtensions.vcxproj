@@ -134,6 +134,7 @@
     <ClInclude Include="Add3.h" />
     <ClInclude Include="Multiply3.h" />
     <ClInclude Include="GridLengthAdd3.h" />
+    <ClInclude Include="GridLengthMultiply.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -147,6 +148,7 @@
     <ClCompile Include="Add3.cpp" />
     <ClCompile Include="Multiply3.cpp" />
     <ClCompile Include="GridLengthAdd3.cpp" />
+    <ClCompile Include="GridLengthMultiply.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>

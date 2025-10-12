@@ -5,18 +5,23 @@
 #include "AttachedPropertyHelper.h"
 
 namespace winrt::XamlExtensions::implementation {
-    struct GridLengthAdd3 : AttachedPropertyBase<GridLengthAdd3, mux::GridLength> {
+    struct GridLengthAdd3 {
             GridLengthAdd3() = delete;
 
-            DECLARE_TERNARY_OPERATION_PROPERTIES(GridLengthAdd3,
-                                                 XamlExtensions::GridLengthAdd3,
-                                                 mux::GridLength,
-                                                 mux::GridLength(0.0))
+            DECLARE_INPUT_PROPERTY(A, mux::GridLength)
+            DECLARE_INPUT_PROPERTY(B, mux::GridLength)
+            DECLARE_INPUT_PROPERTY(C, mux::GridLength)
+            DECLARE_RESULT_PROPERTY(mux::GridLength)
 
+        private:
+            static void OnInputPropertyChanged(
+                const mux::DependencyObject& d,
+                const mux::DependencyPropertyChangedEventArgs& /*e*/);
             static void UpdateResult(const mux::DependencyObject& target);
     };
 } // namespace winrt::XamlExtensions::implementation
 
 namespace winrt::XamlExtensions::factory_implementation {
-    struct GridLengthAdd3 : GridLengthAdd3T<GridLengthAdd3, implementation::GridLengthAdd3> {};
+    struct GridLengthAdd3 :
+        GridLengthAdd3T<GridLengthAdd3, implementation::GridLengthAdd3> {};
 } // namespace winrt::XamlExtensions::factory_implementation

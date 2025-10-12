@@ -127,4 +127,19 @@ namespace XamlExtensions
         static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
         static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
     }
+
+    [default_interface]
+    runtimeclass GridLengthMultiply
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetA(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetA(Microsoft.UI.Xaml.DependencyObject target, Microsoft.UI.Xaml.GridLength value);
+
+        static Microsoft.UI.Xaml.DependencyProperty BProperty{ get; };
+        static Double GetB(Microsoft.UI.Xaml.DependencyObject target);
+        static void SetB(Microsoft.UI.Xaml.DependencyObject target, Double value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ResultProperty{ get; };
+        static Microsoft.UI.Xaml.GridLength GetResult(Microsoft.UI.Xaml.DependencyObject target);
+    }
 }

@@ -5,14 +5,17 @@
 #include "AttachedPropertyHelper.h"
 
 namespace winrt::XamlExtensions::implementation {
-    struct Multiply : AttachedPropertyBase<Multiply, double> {
+    struct Multiply {
             Multiply() = delete;
 
-            DECLARE_BINARY_OPERATION_PROPERTIES(Multiply,
-                                                XamlExtensions::Multiply,
-                                                double,
-                                                0.0)
+            DECLARE_INPUT_PROPERTY(A, double)
+            DECLARE_INPUT_PROPERTY(B, double)
+            DECLARE_RESULT_PROPERTY(double)
 
+        private:
+            static void OnInputPropertyChanged(
+                const mux::DependencyObject& d,
+                const mux::DependencyPropertyChangedEventArgs& /*e*/);
             static void UpdateResult(const mux::DependencyObject& target);
     };
 } // namespace winrt::XamlExtensions::implementation
