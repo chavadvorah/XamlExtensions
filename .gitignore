@@ -1,10 +1,22 @@
-*Zone\.Identifier
-packages/
-x64/
-XamlExtensions/
-Generated Files/
-.cache/
-Debug/
-
+# Filetypes
 *.swp
+*.swo
+*.log
+*.exe
+*.obj
+*Zone\.Identifier
+tags
+
+# Directories
+.cache/
+.claude/
+.vs/
+Debug/
+Generated Files/
+packages/
+Research/
+scripts/__pycache__/
+src/junegunnfzf/
+Stitcher/
+x64/
 
