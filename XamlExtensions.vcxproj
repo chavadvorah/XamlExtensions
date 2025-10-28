@@ -101,6 +101,7 @@
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
       <PreprocessorDefinitions>_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(GeneratedFilesDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
@@ -124,35 +125,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="AttachedPropertyHelper.h" />
-    <ClInclude Include="Add.h" />
-    <ClInclude Include="GridLengthAdd.h" />
-    <ClInclude Include="Neg.h" />
-    <ClInclude Include="Multiply.h" />
-    <ClInclude Include="Divide.h" />
-    <ClInclude Include="Add3.h" />
-    <ClInclude Include="Multiply3.h" />
-    <ClInclude Include="GridLengthAdd3.h" />
-    <ClInclude Include="GridLengthMultiply.h" />
+    <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\AttachedPropertyHelper.h" />
+    <ClInclude Include="src\Add.h" />
+    <ClInclude Include="src\GridLengthAdd.h" />
+    <ClInclude Include="src\Neg.h" />
+    <ClInclude Include="src\Multiply.h" />
+    <ClInclude Include="src\Divide.h" />
+    <ClInclude Include="src\Add3.h" />
+    <ClInclude Include="src\Multiply3.h" />
+    <ClInclude Include="src\GridLengthAdd3.h" />
+    <ClInclude Include="src\GridLengthMultiply.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Add.cpp" />
-    <ClCompile Include="GridLengthAdd.cpp" />
-    <ClCompile Include="Neg.cpp" />
-    <ClCompile Include="Multiply.cpp" />
-    <ClCompile Include="Divide.cpp" />
-    <ClCompile Include="Add3.cpp" />
-    <ClCompile Include="Multiply3.cpp" />
-    <ClCompile Include="GridLengthAdd3.cpp" />
-    <ClCompile Include="GridLengthMultiply.cpp" />
+    <ClCompile Include="src\Add.cpp" />
+    <ClCompile Include="src\GridLengthAdd.cpp" />
+    <ClCompile Include="src\Neg.cpp" />
+    <ClCompile Include="src\Multiply.cpp" />
+    <ClCompile Include="src\Divide.cpp" />
+    <ClCompile Include="src\Add3.cpp" />
+    <ClCompile Include="src\Multiply3.cpp" />
+    <ClCompile Include="src\GridLengthAdd3.cpp" />
+    <ClCompile Include="src\GridLengthMultiply.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="XamlExtensions.idl" />
+    <Midl Include="src\XamlExtensions.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
