@@ -38,6 +38,20 @@ public:                                                                         
         return winrt::unbox_value<ValueType>(target.GetValue(m_resultProperty)); \
     }
 
+// Declare the OnInputPropertyChanged handler
+#define DECLARE_PROPERTY_CHANGED_HANDLER()               \
+                                                         \
+private:                                                 \
+    static void OnInputPropertyChanged(                  \
+        const mux::DependencyObject& d,                  \
+        const mux::DependencyPropertyChangedEventArgs&);
+
+// Declare the UpdateResult handler
+#define DECLARE_UPDATE_RESULT_HANDLER()                     \
+                                                            \
+private:                                                    \
+    static void UpdateResult(const mux::DependencyObject&);
+
 // Implement a single input property (implementation in cpp)
 #define IMPLEMENT_INPUT_PROPERTY(ClassName,                                         \
                                  ProjectedName,                                     \

@@ -12,16 +12,11 @@ namespace winrt::XamlExtensions::implementation {
             DECLARE_INPUT_PROPERTY(B, mux::GridLength)
             DECLARE_INPUT_PROPERTY(C, mux::GridLength)
             DECLARE_RESULT_PROPERTY(mux::GridLength)
-
-        private:
-            static void OnInputPropertyChanged(
-                const mux::DependencyObject& d,
-                const mux::DependencyPropertyChangedEventArgs& /*e*/);
-            static void UpdateResult(const mux::DependencyObject& target);
+            DECLARE_PROPERTY_CHANGED_HANDLER()
+            DECLARE_UPDATE_RESULT_HANDLER()
     };
 } // namespace winrt::XamlExtensions::implementation
 
 namespace winrt::XamlExtensions::factory_implementation {
-    struct GridLengthAdd3 :
-        GridLengthAdd3T<GridLengthAdd3, implementation::GridLengthAdd3> {};
+    struct GridLengthAdd3 : GridLengthAdd3T<GridLengthAdd3, implementation::GridLengthAdd3> {};
 } // namespace winrt::XamlExtensions::factory_implementation

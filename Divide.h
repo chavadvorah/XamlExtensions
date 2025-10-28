@@ -11,12 +11,8 @@ namespace winrt::XamlExtensions::implementation {
             DECLARE_INPUT_PROPERTY(A, double)
             DECLARE_INPUT_PROPERTY(B, double)
             DECLARE_RESULT_PROPERTY(double)
-
-        private:
-            static void OnInputPropertyChanged(
-                const mux::DependencyObject& d,
-                const mux::DependencyPropertyChangedEventArgs& /*e*/);
-            static void UpdateResult(const mux::DependencyObject& target);
+            DECLARE_PROPERTY_CHANGED_HANDLER()
+            DECLARE_UPDATE_RESULT_HANDLER()
     };
 } // namespace winrt::XamlExtensions::implementation
 
